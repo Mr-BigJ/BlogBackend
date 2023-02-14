@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--绑定哪个dao-->
+<mapper namespace="cjj.dao.BlogUserMapper">
+
+    <select id="login" resultType="cjj.entity.BlogUser" parameterType="String">
+        select * from bloguser where username=#{arg0} and password=#{arg1}
+    </select>
+
+    <select id="getUsername" resultType="String">
+        select username from bloguser
+    </select>
+
+    <insert id="register" parameterType="cjj.entity.BlogUser">
+        insert into bloguser
+        (username,email,password,created,lastedLogin,status,token,buildTime)
+        values
+        (#{username},#{email},#{password},#{created},#{lastedLogin},#{status},#{token},#{buildTime})
+    </insert>
+
+    <update id="updateToken" parameterType="cjj.entity.BlogUser" >
+        update bloguser set lastedLogin=#{user.lastedLogin}, buildTime=#{user.buildTime}, token=#{user.token}
+        where id=#{user.id}
+    </update>
+
+    <select id="getToken" resultType="String" parameterType="String">
+        select token from bloguser where token =#{token}
+    </select>
+
+    <update id="updateAvatar" >
+        update bloguser set avatar=#{url} where id=#{userId}
+    </update>
+
+    <select id="sumLook" resultType="cjj.entity.BlogUser">
+        SELECT sumpraise,sumlook,sumcomment FROM bloguser where username=#{username}
+    </select>
+
+
+    <select id="getByUserId" resultType="cjj.entity.BlogUser">
+        select id,username,email,created,avatar from bloguser where username=#{username}
+    </select>
+
+    <select id="allUser" resultType="cjj.entity.BlogUser">
+        select id,username,sumlook,sumpraise,sumunpraise,sumcomment from bloguser
+    </select>
+
+    <insert id="addUser" parameterType="cjj.entity.BlogUser">
+        insert into bloguser values (#{bloguser.id},#{bloguser.username},
+        #{bloguser.email},#{bloguser.password},#{bloguser.status},
+        #{bloguser.created},#{bloguser.lastedLogin},#{bloguser.token},#{bloguser.tokenId},
+        #{bloguser.buildTime},#{bloguser.avatar},#{bloguser.sumpraise},#{bloguser.sumlook},
+        #{bloguser.sumunpraise},#{bloguser.sumcomment})
+    </insert>
+
+    <select id="search" resultType="cjj.entity.BlogUser">
+        select * from bloguser where username like  #{msg} '%' limit 2000,0
+
+    </select>
+
+    <select id="getTokenByUsername" resultType="string">
+        select token from bloguser where username=#{username}
+    </select>
+
+    <select id="hasSameUsername" resultType="cjj.entity.BlogUser">
+        select * from bloguser where username = #{username}
+    </select>
+
+    <select id="getUserName" resultType="string">
+        select username from bloguser where id = #{id}
+    </select>
+
+</mapper>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--绑定哪个dao-->
+<mapper namespace="cjj.dao.CommentMapper">
+    <insert id="insertComment" >
+        insert into comment values (#{userId},#{contentId},#{comment})
+    </insert>
+
+
+    <select id="sumComment" resultType="integer">
+        select count(id) from comment where userId =
+        (select id from bloguser where username = #{username})
+    </select>
+
+    <insert id="addComment" >
+        insert  into comment (userId,comment,contentId,commentDate) values (
+        #{comment.userId},#{comment.comment},#{comment.contentId},#{comment.commentDate}
+        )
+    </insert>
+
+    <select id="getComments" resultType="cjj.vo.CommentVO">
+        select u.username as username, c.comment ,c.id , c.contentId, c.commentDate
+        from `comment`  c
+        join  bloguser u
+        on c.userId = u.id
+        where c.contentId = #{contentId} order by c.commentDate
+    </select>
+
+</mapper>

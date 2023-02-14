@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--绑定哪个dao-->
+<mapper namespace="cjj.dao.DianZanMapper">
+
+
+    <select id="sumStart" resultType="integer">
+        select count(id) from star where userId =
+    (select id from bloguser where username = #{username})
+    </select>
+
+    <select id="isDianZan" resultType="object" parameterType="integer">
+        select status from dianzan where userId=#{userId} and contentId=#{contentId}
+    </select>
+
+    <insert id="addDianZan" parameterType="integer">
+        insert into dianzan (userId,contentId,status) values (#{userId},#{contentId},#{status})
+    </insert>
+
+    <update id="updateDianZan" parameterType="integer">
+        update dianzan set status=#{status} where userId=#{userId} and contentId=#{contentId}
+    </update>
+
+</mapper>

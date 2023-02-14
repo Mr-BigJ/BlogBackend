@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--绑定哪个dao-->
+<mapper namespace="cjj.dao.CollectionMapper">
+    <insert id="insertCollect" >
+        insert into collection (userId,contentId) values (#{userId},#{contentId})
+    </insert>
+
+    <select id="sumCollection" resultType="integer">
+        select count(id) from collection where userId =
+    (select id from bloguser where username = #{username})
+    </select>
+
+    <delete id="delCollect" >
+        delete from collection where userId=#{userId} and contentId=#{contentId}
+    </delete>
+
+    <select id="isCol" resultType="object">
+        select id from collection where userId=#{userId} and contentId=#{contentId}
+    </select>
+
+    <select id="getMyCol" resultType="cjj.entity.BlogContent">
+        select * FROM  blogcontent where id in
+        (select contentId from collection c
+        left join bloguser u
+        on c.userId=u.id where c.userId=#{userId} )
+    </select>
+</mapper>

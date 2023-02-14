@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--绑定哪个dao-->
+<mapper namespace="cjj.dao.BlogContentMapper">
+    <cache></cache>
+    <select id="getContents" resultType="cjj.entity.BlogContent" >
+        select * from blogcontent where id <![CDATA[<]]> 2000
+    </select>
+
+
+
+
+    <insert id="addOne"  parameterType="cjj.entity.BlogContent" >
+        insert into blogcontent  values (#{blogcontent.id},#{blogcontent.userId},
+        #{blogcontent.title},#{blogcontent.description},
+        #{blogcontent.content},#{blogcontent.created},#{blogcontent.status},
+        #{blogcontent.look},#{blogcontent.praise},#{blogcontent.unpraise},
+        #{blogcontent.username})
+    </insert>
+
+    <insert id="addContent" parameterType="cjj.entity.BlogContent">
+        insert into blogcontent values (#{blogcontent.id},#{blogcontent.userId},
+        #{blogcontent.title},#{blogcontent.description},
+        #{blogcontent.content},#{blogcontent.created},#{blogcontent.status},
+        #{blogcontent.look},#{blogcontent.praise},#{blogcontent.unpraise},
+        #{blogcontent.username})
+    </insert>
+
+
+
+
+    <select id="getMyBlogs" resultType="java.util.HashMap" >
+        select * from blogcontent where username=#{username}
+    </select>
+
+    <select id="MySum" resultType="int">
+        select count(id) from blogcontent where username=#{username}
+    </select>
+
+
+    <update id="updateLook">
+        update blogcontent set look = look+1 where id=#{id};
+    </update>
+
+    <update id="updatePraise">
+        update blogcontent set praise = praise+1 where id=#{id};
+    </update>
+
+    <update id="updateUnPraise">
+        update blogcontent set unpraise = unpraise+1 where id=#{id};
+    </update>
+
+    <select id="sumPraise" resultType="integer">
+        select sum(praise) from blogcontent  where username = #{username}
+    </select>
+
+    <select id="getRecentBlogs" resultType="cjj.entity.BlogContent">
+        select * from blogcontent where id in (
+        select h.contentId from history h
+        join bloguser u
+        on h.userId=u.id
+        where u.username=#{username})
+    </select>
+
+    <select id="getById" resultType="cjj.entity.BlogContent">
+        select  * from blogcontent where id=#{contentId}
+    </select>
+
+    <select id="search" resultType="cjj.entity.BlogContent">
+        select * from blogcontent where title like  #{msg} '%' limit 0,2000
+    </select>
+
+    <update id="decPraise" parameterType="integer">
+        update blogcontent set praise = praise-1 where id=#{contentId}
+    </update>
+
+    <update id="decUnPraise" parameterType="integer">
+        update blogcontent set unpraise = unpraise-1 where id=#{contentId}
+    </update>
+
+    <update id="decLook" parameterType="integer">
+        update blogcontent set look = look-1 where id=#{contentId}
+    </update>
+
+
+
+
+
+</mapper>

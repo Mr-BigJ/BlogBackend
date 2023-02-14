@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--绑定哪个dao-->
+<mapper namespace="cjj.dao.ResortUserMapper">
+    <select id="getAllUserId" resultType="integer">
+        select id from bloguser
+    </select>
+
+
+<!--这里要使用inner join，left join会把用户表都查出来，而匹配条件的语句只有根据userid的那一条，
+因此其他非此id的用户的这几个值会全部以null填充。-->
+    <update id="updateSumPraise" parameterType="integer">
+    UPDATE bloguser b
+    inner join (
+    select sum(praise) sumpraise,sum(unpraise) sumunpraise,sum(look) sumlook,userId
+    from blogcontent where userId=#{userId}) c
+    on b.id = c.userId
+    set b.sumpraise = c.sumpraise,b.sumlook = c.sumlook,b.sumunpraise=c.sumunpraise
+    </update>
+
+
+
+
+
+</mapper>
