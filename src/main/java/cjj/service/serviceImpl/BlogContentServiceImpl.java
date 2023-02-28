@@ -135,7 +135,7 @@ public class BlogContentServiceImpl implements BlogContentService {
 
     @Override
     public Result search(String msg,int page) {
-        List<BlogContent> list = blogContentMapper.search(msg,page-1);
+        List<BlogContent> list = blogContentMapper.search(msg,(page-1)*5);
         if(list.size() == 0){
             return Result.fail(909,"没有与该关键字匹配的信息",null);
         }
