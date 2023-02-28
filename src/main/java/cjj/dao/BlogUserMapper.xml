@@ -21,6 +21,13 @@
         (#{username},#{email},#{password},#{created},#{lastedLogin},#{status},#{token},#{buildTime})
     </insert>
 
+    <insert id="registerTest" parameterType="cjj.entity.BlogUser">
+        insert into bloguser
+        (username,email,password,created,lastedLogin,status,token,buildTime,sumpraise,sumlook,sumunpraise,sumcomment)
+        values
+        (#{username},#{email},#{password},#{created},#{lastedLogin},#{status},#{token},#{buildTime},#{sumpraise},#{sumlook},#{sumunpraise},#{sumcomment})
+    </insert>
+
     <update id="updateToken" parameterType="cjj.entity.BlogUser" >
         update bloguser set lastedLogin=#{user.lastedLogin}, buildTime=#{user.buildTime}, token=#{user.token}
         where id=#{user.id}

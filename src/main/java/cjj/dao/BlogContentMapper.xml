@@ -7,7 +7,7 @@
 <mapper namespace="cjj.dao.BlogContentMapper">
     <cache></cache>
     <select id="getContents" resultType="cjj.entity.BlogContent" >
-        select * from blogcontent where id <![CDATA[<]]> 2000
+        select * from blogcontent limit #{filterSize},5
     </select>
 
 
@@ -70,7 +70,7 @@
     </select>
 
     <select id="search" resultType="cjj.entity.BlogContent">
-        select * from blogcontent where title like  #{msg} '%' limit 0,2000
+        select * from blogcontent where title like  #{msg} '%' limit #{page},5
     </select>
 
     <update id="decPraise" parameterType="integer">

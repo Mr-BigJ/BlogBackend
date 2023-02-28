@@ -41,7 +41,7 @@ public class ScheduleSort  {
     public void reSortUser() throws ExecutionException, InterruptedException {
 
 //        redisTemplate.opsForZSet().unionAndStore("users","dksgkdjsn","userTemp");
-        redisUtil.del("users");
+        /*redisUtil.del("users");
         List<Integer> list = resortUserMapper.getAllUserId();
         listSize = list.size();
         idList = list;
@@ -54,7 +54,7 @@ public class ScheduleSort  {
             double rule = b.getSumpraise()-b.getSumunpraise() * 0.8 + b.getSumlook() * 0.5;
             redisTemplate.opsForZSet().add("users",b.getUsername()+"-"+b.getSumlook()+"-"+b.getSumunpraise()+"-"+b.getSumpraise(),rule);
         }
-        redisTemplate.delete("userTemp");
+        redisTemplate.delete("userTemp");*/
     }
 
 

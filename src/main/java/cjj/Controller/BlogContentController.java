@@ -19,8 +19,8 @@ public class BlogContentController {
 
 
     @PostMapping("/content")
-    public Result getContents(){
-        return service.getContents();
+    public Result getContents(int pageNo){
+        return service.getContents(pageNo);
     }
 
 
@@ -51,7 +51,7 @@ public class BlogContentController {
     }
 
     @PostMapping("/getMyBlogs")
-    public Result getMyBlogs(String username){
+    public Result getMyBlogs(String username) {
         return service.getMyBlogs(username);
     }
 
@@ -101,8 +101,8 @@ public class BlogContentController {
     }
 
     @PostMapping("/search")
-    public Result search(String searchInfo){
-        return service.search(searchInfo);
+    public Result search(String searchInfo,int page){
+        return service.search(searchInfo,page);
     }
 
 

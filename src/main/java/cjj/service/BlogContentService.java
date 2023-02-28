@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface BlogContentService {
-    Result getContents();
+    Result getContents(int pageNo);
     Result addOne(BlogContent blogContent);
     int sum();
 
@@ -29,7 +29,7 @@ public interface BlogContentService {
 
     Result getRecentBlogs(String username);
 
-    Result search(String msg);
+    Result search(String msg,int page);
 
     Result decPraise(int contentId);
     Result decUnPraise(int contentId);

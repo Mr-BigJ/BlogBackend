@@ -29,4 +29,64 @@ public class BlogUser implements Serializable {
     private int sumpraise;
     private int sumunpraise;
     private int sumcomment;
+
+    public int getId() {
+        return id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getCreated() {
+        return created;
+    }
+
+    public String getLastedLogin() {
+        return lastedLogin;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public long getTokenId() {
+        return tokenId;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public String getBuildTime() {
+        return buildTime;
+    }
+
+    public int getSumlook() {
+        return sumlook;
+    }
+
+    public int getSumpraise() {
+        return sumpraise;
+    }
+
+    public int getSumunpraise() {
+        return sumunpraise;
+    }
+
+    public int getSumcomment() {
+        return sumcomment;
+    }
 }

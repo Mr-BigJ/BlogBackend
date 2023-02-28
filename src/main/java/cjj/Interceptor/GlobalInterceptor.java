@@ -71,8 +71,9 @@ public class GlobalInterceptor{
             }
             //判断过期时间
             Date expiration = claims.getExpiration();
-            int chaoshi =(int)  (new Date().getTime() - expiration.getTime()/1000);
-            if( chaoshi >= 60 * 60 * 24 * 3 ){
+            //
+            int chaoshi =(int)  ( (expiration.getTime()/1000) - new Date().getTime());
+            if( chaoshi > 60 * 60 * 24 * 3 ){
                 throw new JwtException("token过期");
             }
         }

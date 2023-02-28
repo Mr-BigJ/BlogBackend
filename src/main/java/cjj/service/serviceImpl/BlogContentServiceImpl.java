@@ -33,19 +33,11 @@ public class BlogContentServiceImpl implements BlogContentService {
 
 
     @Override
-    public Result getContents() {
-        if(!redisUtil.hasKey("contents")){
-            List<BlogContent> contents1 = blogContentMapper.getContents();
-            for (BlogContent b: contents1) {
-                redisTemplate.opsForZSet().add("contents",b,b.getPraise());
-            }
-            redisUtil.expire("contents",3600*24);
-            return Result.success(200,"",redisTemplate.opsForZSet().reverseRange("contents", 0, -1));
-        }else {
-
-            Set<Object> contents1 = redisTemplate.opsForZSet().reverseRange("contents", 0, -1);
-            return Result.success(200,"",contents1);
-        }
+    public Result getContents(int pageNo) {
+        int pageSize = 5;
+        int filterSize = pageSize * (pageNo-1);
+        List<BlogContent> contents = blogContentMapper.getContents(filterSize);
+        return Result.success(200,"",contents);
     }
 
 
@@ -58,7 +50,7 @@ public class BlogContentServiceImpl implements BlogContentService {
             return Result.fail(606,"添加失败","数据过大或格式错误");
         }else {
             redisUtil.del("contents");
-            List<BlogContent> contents1 = blogContentMapper.getContents();
+            List<BlogContent> contents1 = blogContentMapper.getContents(1);
             for (BlogContent b: contents1) {
                 redisTemplate.opsForZSet().add("contents",b,b.getPraise());
             }
@@ -142,13 +134,9 @@ public class BlogContentServiceImpl implements BlogContentService {
     }
 
     @Override
-    public Result search(String msg) {
-        if(msg.equals("")){
-            Set<Object> contents1 = redisTemplate.opsForZSet().reverseRange("contents", 0, -1);
-            return Result.success(200,"",contents1);
-        }
-        List<BlogContent> list = blogContentMapper.search(msg);
-        if(list == null){
+    public Result search(String msg,int page) {
+        List<BlogContent> list = blogContentMapper.search(msg,page-1);
+        if(list.size() == 0){
             return Result.fail(909,"没有与该关键字匹配的信息",null);
         }
         return Result.success(200,"",list);

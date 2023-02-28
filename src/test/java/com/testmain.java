@@ -94,22 +94,30 @@ public class testmain {
         list.add("1. 草莓亮白牙齿；2. 牙膏治疗疱疹；3. 菠萝汁洁面； 4. 冰牛奶舒缓灼伤；5. 消毒药片洁甲；6. 柠檬汁恢复肤色；7. 橄榄油婴儿油卸唇妆；8. 阿司匹林去痘； 9. 柠檬汁护发；10. 粗盐去黑头； 11. 眼霜消丘疹");
         list.add("一、圆脸(对人际关系及财运都有加分)；二、下巴丰满（可能会拥有两栋以上的房产）；三、臀大(代表有财运)；四、腿不能细（腿长脚瘦，奔走不停，辛苦之相也）；五、小腹有脂肪(状是一种福寿之相)。(via @创意时尚空间）");
         list.add("《加勒比海盗：惊涛怪浪》：5月20日、《不再让你孤单》：5月20日(因为谐音\\'我爱你\\') 、《功夫熊猫2》：5月28日、《速度与激情5》：5月12日 、《雷神》《大太阳》《百年情书》：5月6日 、《最爱》《蔡李佛拳》：5月10日 、《男得有爱》5月13日 P.S你想看哪部？[色]");
-        for (int i = 72; i < 172; i++) {
-            users.add(i);
-        }
-        for (int i = 0; i < 450000; i++) {
+        list.add("<p>在你的U盘中建个空的文件</p><p><img src=\"https://myvueblog-cjj.oss-cn-guangzhou.aliyuncs.com/vueblog/contentImg/2022030335da9903df4c4933bcd092d5279156dd1.jpeg\" width=\"213\" style=\"\"></p><p>即可洒不可解散</p><p>奥斯卡价格表是框架</p><p>奥科吉根本就上看j</p>");
+        list.add("<p>皮肤辐射损伤</p><p><img src=\"https://myvueblog-cjj.oss-cn-guangzhou.aliyuncs.com/vueblog/contentImg/2022030350a3e10da6f44e65badf9a176ee96c1a2.jpg\" width=\"213\" style=\"\"></p><p>这是图片测试2</p><p>这是图片测试2</p><p>这是图片测试2j</p>");
+        list.add("<p>响体内循环代</p><p><img src=\"https://myvueblog-cjj.oss-cn-guangzhou.aliyuncs.com/vueblog/contentImg/202203294e0c116ffa6542e28b5aa869a91bb6016.jpg\" width=\"213\" style=\"\"></p><p>安康给你hi哇u还包括加班费看啦</p><p>和我普及健康不好我回家</p><p>你们那叫哥哥</p>");
+//        for (int i = 1; i < 172; i++) {
+//            users.add(i);
+//        }
+        for (int i = 0; i <= 1000000; i++) {
             int ran = (int)(Math.random() * list.size());
-            int ranuser = (int)(Math.random() * users.size());
-            blogContent.setContent(list.get(ran));
-            blogContent.setDescription(list.get(ran).substring(0,20).trim());
-            blogContent.setLook(i/100);
-            blogContent.setPraise(i/100);
-            blogContent.setTitle(list.get(ran).substring(10,25).trim());
-            blogContent.setUserId(users.get(ranuser));
-            blogContent.setUnpraise(i/100);
-            String userName = blogUserMapper.getUserName(users.get(ranuser));
-            blogContent.setUsername(userName);
-            blogContentMapper.addOne(blogContent);
+            int ranuser = (int) (Math.random() * 222190);
+            if(ranuser<170){
+
+            }else {
+                blogContent.setContent(list.get(ran));
+                blogContent.setDescription(list.get(ran).substring(0,20).trim());
+                blogContent.setLook(i/3);
+                blogContent.setPraise(i/4);
+                blogContent.setTitle(list.get(ran).substring(10,25).trim());
+                blogContent.setUserId(ranuser);
+                blogContent.setUnpraise(i/130);
+                String userName = blogUserMapper.getUserName(ranuser);
+                blogContent.setUsername(userName);
+                blogContentMapper.addOne(blogContent);
+            }
+
         }
     }
 
@@ -124,22 +132,27 @@ public class testmain {
         blogUser.setStatus(1);
         blogUser.setPassword("666");
         blogUser.setCreated(date);
-        for (int i = 0; i < 100; i++) {
-            blogUser.setUsername("tony" + i);
-            blogUser.setSumcomment(i);
-            blogUser.setSumlook(i);
+        for (int i = 1; i < 80000; i++) {
+            List<String> s = new ArrayList<>();
+            s.add("tony");
+            s.add("jany");
+            s.add("cullen");
+            s.add("oscar");
+            s.add("九转大肠");
+            int ran = (int) (Math.random() * 5);
+            blogUser.setUsername(s.get(ran) + i);
+            blogUser.setSumcomment(0);
+            blogUser.setSumlook((int) (i*0.3));
             blogUser.setSumpraise(i);
-            blogUser.setSumunpraise(i);
-            blogUser.setEmail(i*123 + "@163.com");
-            blogUserMapper.register(blogUser);
+            blogUser.setSumunpraise((int) (i*0.1));
+            blogUser.setEmail(s.get(ran)+i + "@163.com");
+            blogUserMapper.registerTest(blogUser);
         }
     }
 
     @Test
     public void test4(){
-        List<Integer> allUserId = resortUserMapper.getAllUserId();
-        for (int i = 0; i < allUserId.size(); i++) {
-            System.out.print(allUserId.get(i)+" ");
-        }
+        String userName = blogUserMapper.getUserName(1);
+        System.out.println(userName);
     }
 }

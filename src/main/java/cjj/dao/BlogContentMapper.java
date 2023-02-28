@@ -12,7 +12,7 @@ import java.util.Map;
 
 public interface BlogContentMapper {
 
-    List<BlogContent> getContents();
+    List<BlogContent> getContents(int filterSize);
 
 
     int addOne(@Param("blogcontent")BlogContent blogContent);
@@ -35,7 +35,7 @@ public interface BlogContentMapper {
 
     BlogContent getById(@Param("contentId")int contentId);
 
-    List<BlogContent> search(@Param("msg")String msg);
+    List<BlogContent> search(@Param("msg")String msg,@Param("page")int page);
 
 
     int decPraise(@Param("contentId")int contentId);

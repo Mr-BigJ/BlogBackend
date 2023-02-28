@@ -13,6 +13,8 @@ public interface BlogUserMapper {
 
     int register(BlogUser user);
 
+    int registerTest(BlogUser user);
+
     void insertToken(BlogUser user);
 
     void deleteToken(long tokenId);
