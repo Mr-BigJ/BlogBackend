@@ -22,8 +22,8 @@ import java.util.concurrent.RecursiveTask;
 @EnableScheduling
 @Async
 public class ScheduleSort  {
-    public static int listSize;
-    public static List<Integer> idList;
+    public static int usersSize;
+    public static List<BlogUser> users;
 
     @Autowired
     RedisUtil redisUtil;
@@ -39,22 +39,17 @@ public class ScheduleSort  {
 
     @Scheduled(fixedRate = 60000*60*3)
     public void reSortUser() throws ExecutionException, InterruptedException {
-
-//        redisTemplate.opsForZSet().unionAndStore("users","dksgkdjsn","userTemp");
-        /*redisUtil.del("users");
-        List<Integer> list = resortUserMapper.getAllUserId();
-        listSize = list.size();
-        idList = list;
-        for (int i = 0; i < 20; i++) {
-            new Thread(new SortThread(listSize/20*i,listSize/20*(i+1)-1,resortUserMapper)).start();
-        }
-
+        //获取两个变量的合集放到第三个中
+        redisTemplate.opsForZSet().unionAndStore("users","","userTemp");
+        redisUtil.del("users");
         List<BlogUser> blogUsers = blogUserMapper.allUser();
-        for (BlogUser b:blogUsers) {
-            double rule = b.getSumpraise()-b.getSumunpraise() * 0.8 + b.getSumlook() * 0.5;
-            redisTemplate.opsForZSet().add("users",b.getUsername()+"-"+b.getSumlook()+"-"+b.getSumunpraise()+"-"+b.getSumpraise(),rule);
+        usersSize = blogUsers.size();
+        users = blogUsers;
+        for (int i = 0; i < 200; i++) {
+            new Thread(new SortThread(usersSize/200*i,usersSize/200*(i+1)-1,users,redisTemplate)).start();
         }
-        redisTemplate.delete("userTemp");*/
+        //Thread.sleep(30000);
+        redisTemplate.delete("userTemp");
     }
 
 

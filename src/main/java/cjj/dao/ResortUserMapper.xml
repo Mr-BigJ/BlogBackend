@@ -6,7 +6,7 @@
 <!--绑定哪个dao-->
 <mapper namespace="cjj.dao.ResortUserMapper">
     <select id="getAllUserId" resultType="integer">
-        select id from bloguser
+        select count(id) from bloguser
     </select>
 
 

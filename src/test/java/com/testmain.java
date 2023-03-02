@@ -100,25 +100,22 @@ public class testmain {
 //        for (int i = 1; i < 172; i++) {
 //            users.add(i);
 //        }
-        for (int i = 0; i <= 1000000; i++) {
+        for (int i = 0; i <= 500000; i++) {
             int ran = (int)(Math.random() * list.size());
-            int ranuser = (int) (Math.random() * 222190);
-            if(ranuser<170){
-
-            }else {
-                blogContent.setContent(list.get(ran));
-                blogContent.setDescription(list.get(ran).substring(0,20).trim());
-                blogContent.setLook(i/3);
-                blogContent.setPraise(i/4);
-                blogContent.setTitle(list.get(ran).substring(10,25).trim());
-                blogContent.setUserId(ranuser);
-                blogContent.setUnpraise(i/130);
-                String userName = blogUserMapper.getUserName(ranuser);
-                blogContent.setUsername(userName);
-                blogContentMapper.addOne(blogContent);
-            }
+            int ranuser = (int) (Math.random() * 10191);
+            blogContent.setContent(list.get(ran));
+            blogContent.setDescription(list.get(ran).substring(0,20).trim());
+            blogContent.setLook(i/3);
+            blogContent.setPraise(i/4);
+            blogContent.setTitle(list.get(ran).substring(10,25).trim());
+            blogContent.setUserId(ranuser);
+            blogContent.setUnpraise(i/130);
+            String userName = blogUserMapper.getUserName(ranuser);
+            blogContent.setUsername(userName);
+            blogContentMapper.addOne(blogContent);
 
         }
+
     }
 
 
@@ -132,20 +129,13 @@ public class testmain {
         blogUser.setStatus(1);
         blogUser.setPassword("666");
         blogUser.setCreated(date);
-        for (int i = 1; i < 80000; i++) {
-            List<String> s = new ArrayList<>();
-            s.add("tony");
-            s.add("jany");
-            s.add("cullen");
-            s.add("oscar");
-            s.add("九转大肠");
-            int ran = (int) (Math.random() * 5);
-            blogUser.setUsername(s.get(ran) + i);
+        for (int i = 1; i < 10000; i++) {
+            blogUser.setUsername("Cullen"+i);
             blogUser.setSumcomment(0);
-            blogUser.setSumlook((int) (i*0.3));
-            blogUser.setSumpraise(i);
+            blogUser.setSumlook(i);
+            blogUser.setSumpraise((int) (i*0.5));
             blogUser.setSumunpraise((int) (i*0.1));
-            blogUser.setEmail(s.get(ran)+i + "@163.com");
+            blogUser.setEmail("Cullen"+i + "@163.com");
             blogUserMapper.registerTest(blogUser);
         }
     }
@@ -155,4 +145,6 @@ public class testmain {
         String userName = blogUserMapper.getUserName(1);
         System.out.println(userName);
     }
+
+
 }
